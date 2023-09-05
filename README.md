@@ -1,1 +1,0 @@
-# ics-mindmap-demo
