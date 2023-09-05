@@ -1,0 +1,7 @@
+# this folder contain three models, drawing model, edge_tip, node model
+3 models are already in ics-analysis-dev project - bukets name: ics-mindmap-model 
+
+Using ViT models (edge tip detection, node detection, drawing detection)
+For edge tip detection: use the model to clarify directionality of already detected edges and extreme points in current pipeline. Establish a small threshold distance and look for ViT detections within or inside the extreme points. If both extreme points have detections choice the one with highest threshold. Bidirectional edges are very rare, so for both extreme points to contain arrows is quite unlikely. 
+Drawing detection: use it to determine first, if it is part of a node with text or is a standalone node (a pure drawing node). The first case would be more likely if its IOU is above a certain threshold with an existing bounding box and/or has no edges extreme point closer than a certain threshold. In any case, what we really care about is standalone drawing nodes. Establishing a ViT detection to be such, can be assess by looking at edges extreme point closer than a certain threshold.
+Node detection: firstly can be used to assess whether two or more bounding boxes should be joined together as being part of the same node. Secondly, if no bounding boxes are present in the location and the probabilities are “high enough” that might mean we are in presence of a (pure) drawing node. Contrast the finding with the drawing detections.
